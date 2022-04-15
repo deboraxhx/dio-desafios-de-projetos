@@ -1,27 +1,23 @@
-# package_name
+# powersets
 
-Description. 
-The package package_name is used to:
-	- 
-	-
+Description.
+The package powerset is used to: - é uma função criada para retornar combinações únicas dos elementos em uma lista -
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install package_name
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install powersets
 
 ```bash
-pip install package_name
+pip install powersets
 ```
 
 ## Usage
 
 ```python
-from package_name import file1_name
-file1_name.my_function()
+from powesets import powerset1
+powerset1(lista)
 ```
 
 ## Author
-My_name
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+Débora
