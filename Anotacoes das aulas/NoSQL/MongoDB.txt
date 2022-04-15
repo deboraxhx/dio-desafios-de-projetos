@@ -1,0 +1,331 @@
+MongoDB
+
+1. INTRODUÇAO AO MONGODB
+	1.1 Caracteristicas 	
+		- Codigo aberto
+	
+		- Alta performance
+	
+		- Schema free
+
+		- Utilizar json para armazenamento dos dados
+			Bison - Que é basicamente o JSON com binarios.  
+		
+		- Suporte a indices
+
+		- Auto-Sharding   (nativamente feito para escalar de forma horizontal)
+		
+		- Permite escalar de forma vertical também, tendo replica de leitura por exemplo.
+
+		- Map-Reduce ---> Ferramente de consulta e agregação, é um diferencial muito grande, quando precisamos consultar
+		  			um grande volume de dados, e ter algum resultado com base nele. 
+
+		- GridFS ---> Um armazenamento de arquivo. 
+
+		- Rica linguagem de consulta
+
+	1.2 Estruturaçao dos dados. 
+		
+		Document ==> Tupla/Registro  (a unidade mais pequena)
+
+		Collection ==> Tabela  
+
+		Embedding/linking ==> Join  (dentro do documento, tem que ter toda a sua substrutura, 
+						     por exemplo, um usuario que tem um endereço, todas as informaçoes
+						     de usuario tem que estar num mesmo documento e o endereço.
+
+		
+
+			legenda:
+				   ==> significa, analogo a   
+
+	1.3 Quando usar
+		
+		Grande volume de dados
+
+		Dados não necessariamente estruturados. 
+
+				
+			Exemplo de utilizaçao
+
+				na criaçao de um cardapio online, e nesse cardapio online na hora de configurar 
+				as categorias os tipos de produtos, cada produto tem uma caracteristica especifica, então 
+				se voce for criar um lanche, o lanche vc vai escolher o hamburgue, vc vai escolher se vai vir com salada, 
+				o ponto da carne. Enquanto que vc está montando uma pizza, voce vair perguntar se vai ter borda, tem adicional,
+				as estruturas são diferente, e  portanta um bom uso seria o MongoDB. 
+
+	1.4 Quando não usar
+
+		Necessidade de relacionamento/joins.
+			Quando tiver uma estrutura que tiver explictamente a necessidade de relacionamento entre essas informacoes,
+			não é aconselhavel o seu uso. Por que vai estar basicamente dando JOINS na sua aplicaçao. 
+ 	
+		Propriedade ACID  e transaçoes são importante. 
+
+		 Curiosidade: Diversas entidade de pagamento não homologam sistemas cujos dados financeiros dos clientes
+				 não estejam em bancos de dados relacionais tradicionais.  
+	
+
+
+	EMPRESAS QUE UTILIZAM: Linkedin, O Globo, MTV...
+
+
+
+
+
+
+INSTALANDO O DOCKER
+
+
+Criar um arquivo pelo editor de texto, pode ser feito sem tb
+
+	nomeando como:  docker-compose.yml
+		dentro
+
+'3.8'       ----> colocar a ultima versão
+services:
+	   db:
+		image: mongo	
+		container_name: db
+		restart: always
+		environment:	
+		  - MONGO_INITDB_ROOT_USERNAME=debora	
+		  - MONGO_INITDB_ROOT_PASSWORD=trena
+		ports:
+		  - "27017:27017"
+		volumes: 
+		  - /Users/salete/mongodb/dbdata:/data/db
+		 		
+
+
+
+
+AGORA NO SHELL
+
+---> docker-compose up -d 
+---> docker container ps
+
+
+SE TIVER O MONGO INSTALADO NATIVO OU NO DOCKER, CONTINUE
+
+mongo --host 127.0.0.1:271017 -p trena -u debora               -------------> inicializa o mongo shell
+show databases
+exit                                                           --------------> sair
+
+
+
+
+
+
+APÓS CRIAR O CONTAINER, INSTALAR O ROBO3T -    site>>> robomongo.org
+
+
+apos instalar: 
+
+cria uma nova conexão,  fazer conexao direta.   e deixar localhost
+login e senha que passamos no yml
+
+Se estiver tudo certo, ele aparecerar que foi conectado e autorizado, ambos os marcadore em verde. CLOSE >>> SAVE >>> CONNECT
+
+
+
+
+
+MONGO CLOUD ->>> ALTENATIVA PARA CRIAR UM BANCO DE DADOS. 
+
+mongodb.com
+
+CRIAR CLUSTER  ---- CREATE CLUSTER >>> CREATE CLUSTER
+
+LIBERAR O IP ----  NETWORK ACCESS >>> ADD CURRENT IP ADDRESS >>> CONFIRM
+
+CRIAR USUARIO ---- DATABASE ACCESS >>> ADD NEW DATABASE USER >>> DATA USER PREVILEGES: Read and write any database >>> ADD USER
+
+CONECTAR AO BANCO DE DADOS ---- CLUSTER >>> CONNECT >>> CONECTAR VIA SHELL
+		
+						SELECIONAR QUE NAO TEM INSTALADO QUE LÁ ENSINA COMO INSTALAR O MONGO DB, E ADICIONAR A VARIAVER DE
+						DE AMBIENTE. 
+
+						NESSA PARTE DE CONNECT, TEM TAMBÉM A OPCAO DE USAR O COMPASS, LA MOSTRA COMO INSTALAR
+
+
+
+_______________________________________________________________
+
+
+
+EXEMPLO DE CÓDIGOS MONGODB
+
+
+	abrir o mongo db no terminal:
+	mongo --host 127.0.0.1:27017 -u debora -p trena --authenticationDatabase=admin
+	
+	show databases;								   ----> mostras os databases
+	use fenda_biquini;							   ----> cria um database	
+	db.creatCollection("test", {capped: true, max: 2, size: 2});   ----> cria uma collections
+	show collections;								   ----> exibe as collections	
+	db.test.insertOne({"name": "Test 1"});                     	   ----> insere dados dentro de uma collections
+	db.test.insertOne({"name": "Test 2"});
+	db.test.insertOne({"name": "Test 3"});
+	db.test.find({});								   ----> mostra os dados drento de umas collection, mas como essa collection foi criado de forma explicita, o primeira dados vai expirar	
+	db.test1.insertOne({"age": 10});                               ----> criei uma nova collection na inserçao de dados, de forma inplicita, o que faz com que possa adiciona varios dados sem expirar.
+	db.test1.insertOne({"age": 10});
+	db.test1.insertOne({"age": 10});
+	db.test1.insertOne({"age": 10}); 
+	db.test1.insertOne({"age": 10});
+	db.test1.find({});							   ----> mostras todos dos dados criados, pois foi veito de forma inplicita. 
+
+	db.clients.insert(["nome": "Patrick", "age": 38} , {"nome": "Bob Esponja"}])								
+	db.clients.insertOne({ name: "Debora", age: 20, status: "Single"} )
+	db.clients.insertOne({ name: "Luiz Filipe", age: 16, status: "Single"} )
+	db.clients.updateMany({age: { $lte: 20 } }, { $set: {status: "aprove", age: 25} })  -----> Primeiro vem a condição, $lte significa menor ou igual.) 
+
+operadores MONGODB
+_________________________________________________
+QUERYES
+
+db.collection.find( { <query> } )._addSpecial( <option> )
+db.collection.find( { $query: { <query> }, <option> } )
+
+  COMPARAÇÃO
+	$lte  :  menor ou igual que  
+	$lt   :  menor que 
+	$gt   :  maior que
+	$gte  :  maior ou igual que
+	$in   :  corresponde a qualquer um dos valores especificados em uma matriz
+	$eq   :  igual a
+	$ne   :  diferente de
+	$nin  :  não corresponde a nenhum dos valores especificados em uma matriz
+ 
+  LÓGICO
+	$and  :  junta-se a clausulas de consulta com retornos logicos todos os documentos
+		   que correspondem as condiçoes de ambas as clausulas
+	$not  :  Inverte o efeito de uma expressão de consulta e devolve documentos que
+		   não correspondem a expressão da clausula.
+	$nor  :  Junta-se a clausulas de consulta com retornos logicos todos os documentos
+		   que nao correspondem a ambas as clausulas. 
+	$or   :  Junta-se a clausulas de consulta com retornos logicos todos os documentos
+		   que correspondem as condiçoes de qualquer clausula
+  ELEMENTO
+	$exists : Corresponde a documentos que tem o campo especificado
+	$type   : Seleciona documentos se um campo for do tipo especificado
+	
+  AVALIAÇÃO
+	$expr      : Permite o uso de expressçoes de agrefaçao dentro da linguagem de consulta
+	$jsonSchma : Validar documentos para os dados JSON Schema
+	$mod       : Realiza uma operaçao de modulo no valor de um campo e seleciona documentos 
+		       com um resultados especificado
+	$regex     : Seleciona documentos onde os valores correpondem a uma expressao regular especificada
+	$text      : Realiza pesquisa de texto
+	$where     : Combina documentos que satisfazem uma expressão JavaScript.
+	
+  ARRAY
+	$all 	     : Combina matrizes que contem todos os elementos especificados na consulta. 
+	$elemMatch : Seleciona documentos se o elemento no campo de matriz corresponder a 
+			 a todas as condições $elemMatch especificadas.
+	$size      : Seleciona documentos se o campos array for de um tamanho especificado.
+
+  BITEWISE
+	$bitsAllClear : Corresponde a valores numericos ou binarios em que um conjunto de 
+			    de posições de bits todos tem um valor de 0
+	$bitsAllSet   : Corresponde a valoresn numericos ou binarios em que um conjunto de
+			    posições de bits todos tem um valor de 1
+	$bitsAnyClear : Corresponde a valores numericos ou binarios em que qualquer bit de
+			    um conjuntode posições de bit tem um valor de 0.
+	$bitsAnySet   : Corresponde a valores numericos ou binarios em que qualquer bit de
+			    um conjuntode posições de bit tem um valor de 1.
+
+OPERADORES DE PROJEÇÃO
+	$           : Projeta o primeiro elemento de uma matriz que corresponde a condição de consulta
+	$elemMatch	: Projeta o primeiro elemento de uma matriz que corresponde a condição elemMatch especificada
+	$meta       : Projeta a pontuação do documento atribuida $text operação
+	$slice 	: Limita o numero de elementos projetados a partir de uma matriz. Suporta pular e limitar fatias. 
+	
+OPERADORES DIVERSOS 
+	$commet     : Adciona um comentario a uma predicado de consulta
+	$rand 	: Gera um flutuador aleartorio entre 0 e 1.
+ 
+_________________________________________________
+
+UPDATE DOS DADOS:
+
+ db.collection.updateMany()
+ db.collection.findAndModify().
+
+{
+   <operator1>: { <field1>: <value1>, ... },
+   <operator2>: { <field2>: <value2>, ... },
+   ...
+}
+
+OPERADOR PARA UPDATE
+CAMPOS
+	$currentDate : 	Define o valor de um campo para a data atual, seja como uma data 
+				ou como um timestamp.	
+	$inc 		 : 	Aumenta o valor do campo pelo valor especificado.
+	$min		 :	Só atualiza o campo se o valor especificado for menor que o valor
+				de campo existente
+	$max		 : 	Só atualiza o campo se o valor especificado for maior do que o 
+				valor de campo existente.
+	$mul		 :    Multiplica o valor do campo pelo valor especificado.
+	$rename	 : 	Renomeia um campo.
+	$set		 :    Define o valor de um campo em um documento. 
+	$setOnInsert : 	Defina o valor de um campo se uma atualização resultar em uma inserção
+				de um documento. Não tem efeito nas operações de atualização que
+				modificam documentos existentes.
+	$unset 	 : 	Remove o campo especificado de um documento.
+
+ARRAY
+OPERADORES
+	$		    :	Atua como um espaço reservado para atualizar o primeiro elemento que
+				corresponde à condição de consulta.
+	$[]		    :	Atua como um espaço reservado para atualizar todos os elementos em um
+				array para os documentos que correspondem à condição de consulta.
+	$[<identifier>] : Atua como um espaço reservado para atualizar todos os elementos que
+				correspondem à condição dos documentos que correspondem à condição de consulta.arrayFilters
+	$addToSet	    : Adiciona elementos a uma matriz somente se eles ainda não existirem no conjunto.
+	$pop 		    : Remove o primeiro ou último item de uma matriz.
+	$pull		    : Remove todos os elementos de uma matriz qyue correspondem a auma consulta especificada
+	$push		    : Adiciona um item a matriz
+	$pullAll	    : Remove todos os valores correspondentes de uma matriz
+
+MODIFICADORES
+	$each		: Modifica os operadores de $push e $addToSet para anexar varios itens para atualizações de arrays
+	$position	: Modifica o operador de $push para especificar a posição no array para adicionar elementos
+	$slice	: Modifica o operador de $push para limitar o tamanho dos arrays atualizados. 
+	$sort		: Modifica o operador de $push para reordenar documentos armazenado em uma matriz. 
+
+
+
+
+
+
+
+
+________________________________
+AGREGADORES:
+
+db.getCollections('restaurants').agreggate([{group: {_id: "$cousine", total: {$sum: 1}, id_maximo: {$max: "restaurant_id}}}])
+
+Funções
+$avg
+$min
+$max
+$sum
+
+adicionando a parte de filtro na agregação:
+
+	
+db.getCollections('restaurants').agreggate([{$match : {$and[{cousine: "American"}, {borough:"Brooklin"}]}}])
+
+
+
+
+			
+
+	
+
+
+
+	
+			 

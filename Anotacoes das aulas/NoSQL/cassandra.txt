@@ -1,0 +1,20 @@
+	2.3.5 CASSANDRA: 
+		Uma caracteristica, ausencia total de transaçoes.
+		A linguagem utilizada pelo cassadandra é o CQL (Cassandra Query Language).
+
+		EX DE CODIGO DA LINGUAGEM:
+		   CREATE KEYSPACE fenda_biquini WITH replication = {'class': 'SimpleStrategy', 'replication_factor':1};      ---> analogo a criaçao de um database/ 
+		   use fenda_biquini;                                                ---> abre o keyspace
+		   CREATE COLUMNFAMILY clients (name TEXT PRIMARY KEY, age int);     ---> analogo a uma Tabela/
+		   SELECT * FROM clients;                                            ---> abre uma consulta
+		   INSERT INTO clients (name, age) VALUES ('Bob Esponja', 38);       ---> insere os dados na Column Family
+		   SELECT * FROM clients;	
+		   INSERT INTO clients JSON '{'name': 'Patrick')';
+		   SELECT * FROM clients WHERE name='Bob Esponja';
+		   SELECT JSON * FROM clients;                                       ---> retornar a consulta como um JSON
+		   UPDATE clients SET age=33 WHERE name='Patrick';                   ---> Adiciona um valor a coluna age de Patrick.
+		   SELECT * WRITETIME FROM clients;						   ---> Retorna também o TimeStamp
+		   ALTER COLUMNFAMILY clients ADD hobby text;				   ---> Adiciona uma nova coluna
+		   UPDATE clients SET hobby='Caçar agua viva' WHERE name='Patrick'   ---> adiciona um valor para a nova coluna. 
+		   SELECT age, WRITETIME(age), hobby, WRITETIME(hobby) FROM clients  ---> retorna o TimeStamp na consulta quando foi escrito. 
+		   DELETE FROM clients WHERE name='Bob Esponja';                     ---> deleta um registro.

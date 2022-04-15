@@ -1,0 +1,55 @@
+2.4.4 REDIS
+		é um banco de dados, cache, messageria e fila. 
+			- Alto desempenho
+			- Estrutura de dados na memoria
+			- Versatilidade de uso
+			- Replicaçao e persistencia. 
+			- Não tem qualquer schema, então aceita qualquer valor
+				Quem usa: Twitter, github, stackoverflow entro outros.te
+
+		lembrando, que temo que ter uma forma de reproduzir a chave, por que não existe o conceito de buscar
+		o registro com base em um valor. Temos que ter o conhecimento da chave. 
+		
+
+		EXEMPLO DE CODIGO PARA O REGIS
+			SET user1:name 'Bob Esponja'    		---> Cria uma chave-valor
+			GET user1:name			  		---> Retorna o valor 
+			SET user '{"name": "Patrick", "age": 30}' ---> Adiciona um JSON
+			GET user						---> Retorna o valor que está na chave user
+			SET user2:name 'Lula Molusco'	EX 10		---> Gera uma chave-valor que expira em 10 segundos(EX 10)
+			EXISTS user2:name					---> Verifica se o dados está presente ou não
+		
+		O Redis nos permite manipular algumas collections, como list, set e hashset. 
+			
+			LPUSH user1:hobbies "Caçar agua viva"      ---> Insere um dado numa lista, e retornara o indice
+			LPUSH user1:hobbies "Comer Hamburgues"     ---> Insere um dado numa lista, e retornara o indice
+			LINDEX user1:hobbies 0				 ---> Retorna o ultimo dado adicionado
+			LRANGE user1:hobbies 0 1			 ---> Retorna o valor em um intervalor de indices 
+			LRANGE user1:hobbies 0 0		   	 ---> Retorna o valor em um intervalor de indices
+			TYPE user1:name			         	 ---> Indica o tipo de valor que está dentro de ua chave
+			TTL user1:name					 ---> Identifica qual o tempo de expiração de uma chave em segundos
+			SET user2:name "Patrick" EX 60
+			TTL user2:name
+			PTTL user2:name					 ---> Identifica qual o tempo de expiração de uma chave em milisegundos
+			PERSIST user2:name				 ---> Remove um tempo de expiração
+			DEL user2:name					 ---> Remover manualmente uma chave
+
+
+2.5 Banco de dados do tipo Documento
+	2.5.1 Informações gerais
+		- Dados e documentos autocontidos e auto descritivos, ou seja, todos os dados que permite ele existir vai estar dentro dele. 
+		- Permite redundancia e inconsistencia. Então, quer dizer que pode ter documentos com estruturas diferentes dentro da mesma collection,
+		  pode ter documentos com atributos a mais, atributos a menos.  
+		- Livre de schemas podendo utilizar JSON, XML entre outros. 
+
+	2.5.2 Ranking dos bancos mais utiliazdos
+		1. MongoDB
+		2. Amazon DynamoDB
+		3. Microsoft Azure Cosmos DB
+		4. Couchbase
+		5. Firebase Realtime Database
+		6. CouchDB
+		7. Realm
+		8. MarcLogic
+		9. Google Cloud Firestore
+		10. ArangoDB

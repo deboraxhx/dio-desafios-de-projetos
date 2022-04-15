@@ -1,0 +1,289 @@
+HADOOP
+
+HIVE E IMPALA
+
+Sao ferrametas de linhas de comando para consultas nos dados do HDFS e HBase
+
+
+
+HIVE
+
+Abstraçao em alto nivel do MapReduce.
+
+Sua linguagem de é a HQL(similar ao SQL)
+
+As consultas HQL são traduzidas implicitamente em um ou mais serviços de MapReduce, protegendo o usuario de programaçao muito avançado
+e consumo de tempo
+
+Gera jobs MapReduce ou Spark no cluster Hadoop. 
+
+A linguagem hive pode ser executada em diferentes ecanismos de computaçao como MapReduce, Tez e Spark
+
+
+
+
+
+IMPALA. 
+
+É um motor SQL de alta performance.
+
+	Uma engine MPP (Massive Parallel Processing) open sourcing para a execucao de queries SQL em ambiente Hadoop.
+
+	Possui baixa Latencia
+	
+É muito mais rapido!
+
+	Oferece melhore de performance de 5x a 50x
+
+	Ideal para queries interativas e analise de dados
+
+	Muitas novidades são implementadas a todo momento. 
+
+
+HIVE X IMPALA
+
+O impala nao salva resultados intermediarios no disco durante consultas demoradas. Dependendo da versao,
+o impala cancela uma consulta em execucao se algum hist no qual essa consulta está execurando falhar
+
+Se uma aplicaçao tiver necessidade de processamento em lote de dados, o HIVE pode ser uma melhor opçao
+
+Se houver neessidade de processameno em tempo real de consultas ad-hoc(com poucoca complexidade na querie) em um subconjundo de dados, o Impala será a melhor opção
+
+
+
+
+
+
+ARQUITETURA HIVE
+
+Quando se roda uma querie, o Hive irá analisar > otimizar > criar um plano de execuçao > Enviar os Jobs para o Cluster 
+> Monitorar o processo > E depois processar os dados na Engine do MapReduce
+
+Legenda:
+UI - interface do usuario
+
+
+UI > Drive > Compila > Busca informaçao no Meta Store > Manda de volta para compilar > Drive(cria um plano de execuçao e envia) 
+> Para a Engine de execuçao disparar os Jobs(no meio ele conversa com a Meta Store) para o HDFS(Resourse Manager)   
+
+
+
+
+
+
+
+
+ARQUITETURA IMPALA
+
+Quando se roda uma querie, o Impala ira analisar > otimizar > > criar um plano de execuçao > Executa a querie no cluster
+(ou seja ele nao monitora, e ja dispara) Nessa parte é onde está a sua VANTAGEM.
+
+
+UI > Drive > Compila > Busca informaçao no Meta Store > Manda de volta para compilar > Drive(cria um plano de execuçao e envia os Jobs para o HDFS
+			Nao tem engine de execuçao separada, o drive se encarrega dessa parte. 
+
+
+
+
+
+
+HIVE X IMPALA
+
+O impala é mais rapido que o Hive, mas isso não significa que ele seja a unica soluçao SQL para todos os problemas de big data.
+
+O impala consome muita memoria e nao é executado de forma eficiente para operaçoes de dados pesados, como JOINS, porque não é possivel
+inserir tudo na memoria. 
+
+
+
+
+
+SOBRE METASTORE   -  Nada mais é que tabelas, onde armazenas informaçoes de Schema que o HIVE e o IMPALA irá utilizar. 
+			   (é umas base apartada, onde contem o relacionamento entre as tabelas) 
+
+
+HIVE e IMPALA trabalhos com o MESMO dado
+	
+	Tabelas no HDFS, metadado e metaestore
+
+Queries sao feitas em tabelas, assim como num banco de dados tradicional
+
+	Uma tabela é simplesmente um diretorio no HDFS contendo um ou varios arquivos
+
+	Caminhi padrao /user/hive/warehouse/<table_nae>
+	
+	Suporta varios formatos.
+
+
+
+HIVE - ele armazena os dados em file system, dentro do caminho padrao, o CAMINHO e o SCHEMA ficam dentro do METASTORE
+
+
+HIVE - Exemplo de codigo
+
+	CREATE DATABASE IF NOT EXISTS treino;             será armazenado em >  /user/hive/warehouse/treino.db
+	DROP DATABASE IF EXISTS treino;
+	USE treino;
+
+	CREATE TABLE tablename (colname DATATYPE, ....)   será armazenado em > /user/hive/warehouse/treino.db>tablename
+	  ROW FORMAT DELIMITED				  
+	  FIELDS TERMINATED BY char			  	  se nao setar, tem a o default > /user/hive/warehouse/tablename
+	  STORED AS {TEXTFILE|SEQUENCEFILE|...}
+
+
+	CREATE TABLE  jobs (
+		id INT,
+		title STRING,
+		salary INT,
+		posted TIMESTAMP
+	)
+	  ROW FORMAT DELIMITED				essas linhas sao configuraçoes adicionais.
+	  FIELDS TERMINATED BY ',';
+									
+essa tabela tera dados nesse formato:
+	1,Data Analyts,100000,2013-06-21 15:52:03
+
+
+
+	CREATE TABLE jobs_archived LIKE jobs;	 cria tabela atraves de outra tabela
+	
+	CREATE TABLE ny_customers AS  		 cria tabela atraves de um caminho(PATCH) de tabela.
+		SELECT cust_id, fname, lname
+		FROM customers
+		WHERE state = 'NY';
+
+
+
+
+Existe dois tipo de tabela:
+	Tabela gerenciada 
+	Tabela externa
+
+
+CRIANDO UM TABELA MANAGED(gerenciada)
+
+	basicadmente um arquivo criado pelo proprio no HDFS;
+	Caso voce drope a tabela, todo o dados posteriormente criado será eliminado no processo
+
+	CREATE TABLE  jobs (
+		id INT,
+		title STRING,
+		salary INT,
+		posted TIMESTAMP
+	)
+	  ROW FORMAT DELIMITED				
+	  FIELDS TERMINATED BY ','
+	  LOCATION '/treino/jobs'; 	
+
+
+CRIANDO UMA TABELA EXTERNAL (externa)
+
+	Cria um metadado para acesso ao arquivo no HDFS;
+	Nesse caso, se dropar a tabela, o dado permanecerá.
+
+
+	CREATE EXTERNAL TABLE  jobs (     				é esse EXTERNAL no create que cria uma tabela externa
+
+		id INT,
+		title STRING,
+		salary INT,
+		posted TIMESTAMP
+	)
+	  ROW FORMAT DELIMITED				
+	  FIELDS TERMINATED BY ','
+	  LOCATION '/treino/jobs'; 
+		
+
+
+OUTROS COMANDOS:
+	
+	SHOW TABLES;
+	
+	DESCRIBE jobs;
+ 
+	SHOW CREATE TABLE jobs;   ele mostra como foi criada a tabela para reaproveitar algum comando. 
+
+
+FORMATOS DE ARQUIVOS
+
+	Ao se criar uma tabela, é possivel que se determine o formato que ela terá
+
+	CREATE TABLE  jobs (
+		id INT,
+		title STRING,
+		salary INT,
+		posted TIMESTAMP
+	)
+	  ROW FORMAT DELIMITED				
+	  FIELDS TERMINATED BY ','
+	  STORED AS format				é aqui esse comando que especifica o formato 
+
+
+alguns dos formatos sao:  PARQUET, OCR, AVRO
+ 				
+
+
+PARTICIONAMENTO
+	
+	é no estilo pasta sobre pastas
+
+
+
+	Nao particione pouco demais: o particionamento por genero por exemplo só cria duas partiçoes ('masculino' e 'feminino'),
+	reduzindo a laencia no maximo pela metade.
+
+	Nao particione demais: Particao demais causa muita carga sobre o namenode do cluster porque ele precisa manipular o
+	grande numero de diretorios.
+
+	CREATE TABLE tab_part (viewTime INT, userid BIGINT, page_url STRING, referrer_url STRING, ip STRING)
+	COMMENT 'essa tabela é particionada'
+	PARTITIONED BY (dt STRING, country STRING)
+	STORED AS TEXTFILE;
+ 
+
+outros comandos uteis hive
+
+set hive.cli.print.header=true;
+set hive cli.print.current.db=true;
+
+
+
+
+
+carregar arquivo o hive
+primeiros cria uma tabela com as colunas e seus schemas setados, se tiver os nomes das colunas no arquivo, tem um 
+comando que pula essa linha.
+>tblproprieties ("skip.header.line.count"="1");            colocar na parte de configuraçoes adicionais. 
+E depois é so colocar(put) a tabela que estava na sua maquina no diretorio da tabela criada.
+
+para inserir o arquivo usar o comando abaixo:
+hdfs dfs -put  /home/everis/employee.txt /user/hive/warehouse/external/tabelas/employee
+	
+
+
+
+
+
+outra forma de carregar os dados:
+
+Crio a tabela com as colunas respectivas e etc e crio a partiçao  
+e passo o comando abaixo:
+>load data local inpath '<caminho do arquivo> 
+>into table <<database>.<tabela>> partition (particao= '<nome da particao>');
+
+
+
+
+
+
+NO IMPALA
+
+Um db do HIVE pode ser carregado no impala também.
+
+Quando um database que está na pasta, mas nao está mostrando no shell do impala, temos que invalidar os dados do Metastore do Impala, para
+ele atualizar a informaçao
+
+Comando:
+
+INVALIDATE METADATA <bd>.<tabela>;
+

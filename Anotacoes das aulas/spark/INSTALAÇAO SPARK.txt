@@ -1,0 +1,12 @@
+SPARK
+
+BAIXAR A VERSAO DESEJADA NO SITE:
+
+https://spark.apache.org/downloads.html, O TIPO DE PACOTE TEM QUE SER PRE-BUILD
+
+DESCOMPACTA O ARQUIVO COM
+
+tar - zxvf apark<versao>.tgz
+
+mover para o local desejado
+

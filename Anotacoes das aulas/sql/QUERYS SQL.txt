@@ -1,0 +1,49 @@
+alteraçoes e querys MYSQL
+
+show databases;
+use pessoas;
+show tables;
+_____________
+CREATE TABLE cursos(id_curso INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(10));
+_____________
+INSERT INTO cursos (nome) VALUE ('MongoDB');
+_____________
+INSERT INTO cursos (nome) VALUE ('Hadoop');
+_____________
+SELECT * FROM cursos
+_____________
+UPDATE cursos SET nome='HML5' WHERE id_curso=3;
+_____________
+DELETE FROM cursos WHERE id_curso=5;
+_____________
+ALTER TABLE cursos ADD carga_horaria INT(2) AFTER nome;
+_____________
+UPDATE cursos SET carga_horaria=20;
+_____________
+UPDATE cursos SET carga_horaria=10 WHERE id_curso=3;
+_____________
+DROP TABLE pessoa;
+_____________
+DROP DATABASE test;
+_____________
+CREATE DATABASE Youtube;
+_____________
+CREATE TABLE videos (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, author VARCHAR(20),
+title VARCHAR(30), likes INT, deslikes INT, data DATE);
+_____________
+INSERT INTO videos (author, title, likes, deslikes, data) VALUES ('Débora', 'Malandragem', 
+52331,120,'2022-01-31')
+_____________
+UPDATE videos SET author='';
+_____________
+ALTER TABLE videos DROP COLUMN author;
+_____________
+SELECT * FROM `videos` JOIN author ON videos.fk_author = author.id_author;
+_____________
+SELECT videos.title, author.name FROM videos JOIN author ON videos.fk_author = author.id_author;
+_____________
+SELECT videos.title, seo.category, author.name FROM videos JOIN seo ON videos.fk_seo = seo.id_seo
+JOIN author ON videos.fk_author = author.id_author;
+
+SELECT videos.title, playlist.name_pl FROM playlist JOIN videos_playlist ON playlist.id_playlist = videos_playlist.fk_playlist
+JOIN videos ON videos_playlist.fk_videos = videos.id_video;

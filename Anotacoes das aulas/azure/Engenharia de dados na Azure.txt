@@ -1,0 +1,183 @@
+AZURE
+
+
+
+ARMAZENAMENTO DE DADOS
+
+Uma conta de armazenamento do Azure pode conter todos os tipos de
+dados disponiveis, blobs, arquivos, filas, tabelas e discos. A conta
+de aramazenamento fornece um namespace exclusivo para os dados que
+podem ser acessado de qualquer lugar do mundo por HTTP ou HTTPS. Os
+dados armazenados na conta do Azure sao duraveis e altamente dispo
+niveis, seguros e amplamente escalonaveis:
+
+tipo de armazenzamento
+
+USO GERAL V2	BLOB, arquivo, fila, 				LRS, GRS, RA-GRS, ZRS, GZRS, RA-GZRS 		
+			tabela, disco,data lake gen2
+USO GERAL V1	BLOB, arquivo, fila, tabela,			LRS, GRS, RA-GRS 
+			disco
+BLOCKBLOBSTORAGE	BLOB							LRS, ZRS
+FILESTORAGE		SOMENTE ARQUIVO					LRS, ZRS
+BLOBSTORAGE		BLOB							LRS, GRS, RA-GRS
+
+
+
+OPCOES DE REDUNDANCIA:
+
+LRS(ARMAZENAMENTO DE REDUNDANCIA LOCAL): 3 COPIAS, NO MESMO DATACENTER
+ZRS(ARMAZENAMENTO COM REDUNDANCIA DE ZONA): 3 COPIAS, NA MESMA REGIAO PRIMARIA
+GRS(ARMAZENAMENTO COM REDUNDANCIA GEOGRAFICA) : 3 COPIAS SINCRONAS NA REGIAO PRIMARIA E 3 COPIAS DE FORMA ASSINCRONA PARA REGIAO SECUNDARIA
+GZRS(ARMAZENAMENTO COM REDUNCANCIA DE ZONA GEOGRAFICA) :  COPIADOS EM TRES ZONAS NA REGIAO PRIMARIAS, E 3 COPIAS NA REGIAO SECUNDARIA. 
+ 
+
+
+PROCESSAMENTO DE DADOS:
+Azure synapse analytcs é especialmente adequado para essa abordagem.
+Usando o Apache Spark e pipelines automatizaos,  synapse Analytics
+pode executar tareas de processamento paralelo em conjuntos de dados
+grandes e executar a analise de Big Data
+
+Azure Synapse Analytics
+É um servico de analise para empresas que utilizam data warehouse e Big Data.
+Voce pode usa-lo para ler dados de muitas fontes, processar dados, 
+gerar uma variedade de analise e modelos e salvar os resultados.
+
+	voce pode escolher uma destas duas tecnologias para processar
+	os dados:	
+		
+		- Transact-SQL
+		- Spark
+
+	Serviços dentro do Azure Synapse Analytics
+	   Synapse SQL
+	   Synapse Pipilenes
+	   Synapse Ling
+	   Synapse Studio - é uma interface web que permite criar
+	       		  pools e pipelines de maneira interativa.
+				  Voce pode desenvolver, testar e depurar
+			        notebooks do Spark e trabalhos Transact SQL
+	   Synapse Spark
+
+		
+ 
+TRANFORMAÇAO DE DADOS
+
+É o processo de converter a estrutura ou o formato do seus dados em
+outro formato ou estrutura em que seja possivel analisa-los.
+
+PREPARAÇAO DE DADOS
+
+É uma atividade que converte dados brutos e desogarnizafos em uma
+visualizaçao limpa e consistente para analise. O processo inclui procura
+limpeza, transformaçao e organizaçao.
+
+ESTAGIOS DE PROCESSAMENTO
+
+há quatro estagops para o processamento de soluçoes de big fata que
+sao comuns a todas as arquiteturas:
+
+	ingestão - a fase de ingestao indentifica a tecnologia e os processos
+		     usados para adquirir os dados de origem. Esses dados
+			podem ser obtidos de arquivos, logs e outros tipos
+			de dados nao estruturados que precisao ser inseridos
+			no data lake storage. A tecnologia usada podera variar,
+			dependendo da frequencia com que os dados sao transferidos. 
+
+	armazenar - a fase de armazenamento identifica o local em que
+			os dados ingeridos devem ser alocados. O Azure
+			data Lake storage gen2 é um serviço de armazenamento
+
+	Preparar e Treinar - a fase de preparaçao e treinamento identifica
+			as tecnologias que sao usadas para executar a preparaçao
+			dos dados e o treinamento de modelo, assim como a pontuaçcao
+			para soluçoes de ciencia de dados. As tecnologias sao
+			o Azure Data Bricks, Azue HDInsight ou os Serviços de
+			Machine Learning do Azure. 		
+	Modelar e fornecer - por fima fase de modelagem e fornecimento
+			envolver as tecnologias que apresentaram os dadosa aos
+			usuarios. podem incluir ferramnetas de visualizaçao como
+			Power Bi, ou outros armazenamentos de dados, como o 
+			Azure Synapse Analytcs, o Azure Cosmo Db, O banco de 
+			dados SQL ou o Azure Analyses Services.  
+	
+AZURE HDInsight
+
+é um serviso de analise totalmente gerenciados, completo e open-souce na nuve
+para empresas. Na microsoft, a analise por meio de software livre é
+implementada no Azure HDInsght. Voce pode usar estruturas de software livre
+como Hadoop, Apache Spark, Apache Hive, LLAP, Apache Kafka, Apache Storm
+e R. 
+
+é um sistema de processamento de dados distribuidos a nuvem altamnete
+disponivel e seguro por padrao. No cerne deste sistema está o Apache
+HAdoop
+
+é uma opçao para ingestao de dados para relatorios historicos e analises
+avançadas e voce tem dados de streaming que exigem analise. Todos os dados
+podem ser ingeridos em uma só localizaçao de DAta Lake.
+
+Voce pode usar a configuraçao do HDInsight para gerenciar o processamento em
+lotes, o data warehouse, as operaçoes de ciencia de dados e  as cargas 
+de trabalho de streaming. Como há separaçao entre a computaçao e o
+processamento, isso pode ser feito diretamente sobre os mesmos dados. 
+
+
+
+
+
+AZURE STREAM ANALYTCS
+
+é um mecanismo de processamento de eventos complexoes e analise em
+tempo real desenvolvido para nalisar e processar simultaneamnete altos
+volumes de dados streaming rapidos a partir de varias fontes.
+
+É possivel identificar padres e relacóes em informacés extraidas de
+diversas fontes de entrada, incluindo dispositivos sensores, sequencia de
+cliques, feeds de midias sociais e aplicativos. 
+
+Tipos de trablho no Azure Stream Analytics:
+	
+	Analisar stream em tempo real de dispositivos IOT
+	
+	Analise de sequencia de cliques/blogs
+	
+	Analise geospacial para gerenciamento de frotas e veiculos
+	sem motoristas.
+	
+	Monitoramento remoto de manutencao preditiva de ativos de alto valor
+	
+	Analise em tempo real em dados de pontos de venda para detecao de anomalias
+	e controle de estoque. 
+
+Como funciona:
+
+	Um trabalho do Azure Stream Analytics consiste em uma entrada, 
+	uma cinsulta e uma saida. O Stream Analytics ingere dados dos Hubs
+	de Eventos do Azure(incluindo Hubs de Eventos do Azure do APache Kafka),
+	do Hub IoT do Azure ou do Armazenamento de Blobs do Azure.
+
+	A consulta, que tem como base a linguagem SQL, pode ser usada
+	para filtrar, classificar, agragar e associar dados de streaming 
+	com facilidade por um periodo de tempo.
+
+Com o Stream Analytics, voce pode:
+	
+	Enviar dados para servicos como Azure Functions, Filas ou Topicos
+	do barramento de Servicóes para disparar comunicacoes ou de flucos de
+	trabalho personalizados downstream. 
+
+	Enviar dados a um painel do Power BI para paineis em tempo real
+
+	Armazenar dados em outros serviçoes de armazenamento do Azure
+	(por exemplo, Azure Data Lake, Azure Synapse Analyticcs etc.) 
+	para treinar um modelo de machine learning com base em dados
+	historicos ou para executar analise de lotes.
+
+	 
+
+
+
+
+
+

@@ -1,0 +1,353 @@
+BANCO DE DADOS NAO RELACIONAL ----- NoSQL.
+
+
+
+1. entender os fatores que levaram a criaçao dos bancos NoSQL.
+
+2. Conhecer as principais diferencas gerais entre os bd sql e nosql
+
+3. Conhecer as caracteristicas e vantagens do uso do bd noql.
+
+1.1. 1998 primeira aparicao do nosql.
+
+1.2. No Only SQL        X          SQL
+
+1.2.1 Utilizacao simultanea.
+1.2.2 Diferenca 
+
+SQL: Escalabilidade   ---> Bancos de dados relacional Vertical. 
+					- Aumento da capacidade para um unicos recurso. 
+					- Processador, memoria e disco rigidos. 
+		     	    ---> Bancos de dados relacional Horizontal
+					- Replica de dados
+						APENAS PARA LEITURA. 
+
+NoSQL: Escalabilidade  ---> Banco de dados NoSQL Horizontal.
+		- Particionando os dados(sharding) entre os nós
+		  é o mais conhecido.
+				Isso permite um maior desempenho na aplicaçao, aperfeiçoando de acordo com a demanda
+				e eles tem escalabilidade infinita, conforme é claro, com ambiente, principalmente se 
+				estiver nas Clouds.
+					EXEMPLO: Um app de comida em que os picos de pedidos é sex, sab e dom, em que se
+						   um fluxo muito maior de usuarios, voce pode facilmente escalar os nós do
+						   meu banco de dados noSQL, para que nesses determinados dias voce tenha mais nós,
+						   para que eles sejam capazes de atender todas as demandas do app. E quando não estiver
+						   utilizando, voce pode fazer o DOWNGRADE da escalabilidade de forma facil. 
+	
+
+SQL: Schema ---> Necessita de uma estrutura muito rigida e previamente moldada.
+
+NoSQL: Schema ---> Ausencia quase completa de regras de Schema
+				- Voce nao precisa pre definir para o BD quais sao os tipos de dados que ele vai receber.
+				- Nao quer dizer que isso nos da abertura para que agente coloque qualquer tipo de dados lá, porém
+		  		  é claro que do BD permite, mas existem boas Praticas para fazer com que o BD seja
+		  		  performatico. 
+				- Voce tem uma menor garantia da consistencia dos valores, e a ausencia das linguagem de consulta. 
+
+
+SQL: Performance   ---> Depende inteiramente do seu subsistema de disco.
+
+NoSQL: Performance ---> Depende do tamanho do Cluster e da latencia da rede.
+
+
+SQL: Transaçoes ---> A tomicidade   - uma transaçao é executada por completo, ou ela nao é executada. 
+			   C onsistencia  - quando uma transaçao for concluida, o BD ele estará exatamente em conformidade com os Schemas pre-definidos
+			   I solamento    - Umas transaçao nunca vai interferir em outra transaçao
+			   D urabulidade  - uma vez a transaçao for concluida o seu dados nao será mais perdido. 
+
+NoSQL: Transaçoes ---> Em geral nao existe esse conceito de transaçao, o MONGODB é uma exceção.
+			     Eles abrem mão de todas as caractertiscas ACID, em prol da Alta Disponibilidade e Desempenho. 
+
+			     Ba sically Availabe       : prioridade na disponibilizaçao de dados. 
+			     S oft-State               : não precisa ser consistente o tempo todos. 
+			     E ventually Consistent.   : Vao ser consistente sim em um momento determinado. 
+
+
+1.2.3. Caracteristica e Vantagens
+
+	- Flexibilidade
+	- Escalabilidade
+	- Alta Performance 
+
+
+
+
+2. Conhecendo os tipos de Bancos de dados NoSQL
+
+2.1 - Tipos de Bancos NoSQL:
+	  O termo NoSQL abrange uma gama muito grande de tecnologias que nao tem semelhancas entre si.  
+	  Essas tecnologias são categorizadas na forma de armazenamento desses dados:
+	
+		MongoDB ---> orientados a documento.
+		Redis ---> chave-valor.
+		Cassandra ---> orientado a coluna, utilizado pelo facebook e Twitter.
+		Neo4j ---> orientado a grafos. 
+
+		
+Baseados a documento:
+Baseados em chave-valor:
+Baseado em coluna:
+Baseado a grafos:
+
+
+2.2 Banco de dados do tipo Grafo. 
+		-> São estruturas matematicas, compostas de nós e vertis.   
+			- os nós são os dados.
+			- os vertices são os relacionamentos. 
+		-> São comuns quando trabalhamos na detecçao de fraudes, mecanismos de recomendaçao,
+		   rede sociais, sistemas de arquivo, games...
+		
+	2.2.1	Os principais são: 
+			1.Neo4j
+			2.Microsoft Azure Cosmos DB
+			3.ArangoDB
+			4.Virtuoso
+			5.GraphDB
+			6.JanusGraph
+			7.Amazon Neptune
+			8.TigerGraph
+			9.Stardog
+
+	2.2.2 Neo4j
+			É um dos poucos BD NoSQL que aplica as propriedades ACID, além disso ele lida muito bem com concorrencia 
+			Ele utiliza a linguagem cipher na estruturaçao dos dados. 
+			
+
+2.3 Coluna/Familia de Coluna:
+	2.3.1 Diferença entre BD Relacional e o NoSQL de colunas:
+		BD SQL: Armazena as informaçoes em forma de uma unica tabela, cada linha da tabela armazena o conjunto de colunas,
+			  a coluna armazena somente o valor.
+				Toda linha, quando inserida no BD, é reservado um tamanho especifico para todas as colunas,
+				o que faz ele ter um crescimento exponencial.
+
+
+	      
+		BD NoSQL: Armazena as informaçoes exatamente nas suas colunas, de forma independente entre elas. 
+				A coluna não é constituida apenas de valor(como o SQL), 
+				ela é constituida de 3 informaçoes:
+					Chave, Valor e time stamp.
+					
+			
+	2.3.2 Ranking de BD de colunas:
+			1. Cassandra
+			2. Hbase
+			3. Microsoft Azure Cosmo DB
+			4. Datastax Enterprise
+			5. Microsoft Azure Table Storae
+			7. Accumulo
+			8. Google Cloud Bridge
+			9. ScyllaDB
+			10.HPE Ezmeral Data Fabric
+			11.Elassandra
+
+	2.3.3 Estrutura
+
+	Esse tipo de DB é utilizado quando se tem um volume muito maior de leitura do que escrita. 
+	O uso adequado dele é a nescessidade de fazer as CONSULTAS pela sua chave PRIMARIA. 
+
+		Keyspace: agrupamento de familias de colunas => database
+		Column Family/table: agrupamento de colunas => table
+		Row Key: chave que representa uma linha de coluna => Primary Key
+		Column: represena um valor contendo: Name, Value Timestamp
+
+				Legenda:  ( => ) esse simbolo significa que se compara ao modelo tradicional na forma de .
+	2.3.4	Sua Utilização
+
+		Registro de transaçoes: compras, resultdados de testes, filmes assistidos e localizaçao mais recente do filme. 
+		Rastreando praticamente qualquer coisa, incluindo status ds pedido, pacotes etc. 
+
+
+	2.3.5 CASSANDRA: 
+		Uma caracteristica, ausencia total de transaçoes.
+		A linguagem utilizada pelo cassadandra é o CQL (Cassandra Query Language).
+
+		EX DE CODIGO DA LINGUAGEM:
+		   CREATE KEYSPACE fenda_biquini WITH replication = {'class': 'SimpleStrategy', 'replication_factor':1};      ---> analogo a criaçao de um database/ 
+		   use fenda_biquini;                                                ---> abre o keyspace
+		   CREATE COLUMNFAMILY clients (name TEXT PRIMARY KEY, age int);     ---> analogo a uma Tabela/
+		   SELECT * FROM clients;                                            ---> abre uma consulta
+		   INSERT INTO clients (name, age) VALUES ('Bob Esponja', 38);       ---> insere os dados na Column Family
+		   SELECT * FROM clients;	
+		   INSERT INTO clients JSON '{'name': 'Patrick')';
+		   SELECT * FROM clients WHERE name='Bob Esponja';
+		   SELECT JSON * FROM clients;                                       ---> retornar a consulta como um JSON
+		   UPDATE clients SET age=33 WHERE name='Patrick';                   ---> Adiciona um valor a coluna age de Patrick.
+		   SELECT * WRITETIME FROM clients;						   ---> Retorna também o TimeStamp
+		   ALTER COLUMNFAMILY clients ADD hobby text;				   ---> Adiciona uma nova coluna
+		   UPDATE clients SET hobby='Caçar agua viva' WHERE name='Patrick'   ---> adiciona um valor para a nova coluna. 
+		   SELECT age, WRITETIME(age), hobby, WRITETIME(hobby) FROM clients  ---> retorna o TimeStamp na consulta quando foi escrito. 
+		   DELETE FROM clients WHERE name='Bob Esponja';                     ---> deleta um registro.
+
+
+2.4 Banco de dados do tipo CHAVE-VALOR
+	2.4.1 Informaçoes gerais.
+
+		Armazena um conjunto de dados, seja ele simples ou complexo
+		identificados por um identificador exclusivo. 
+			Ponto positivo > Bom desempenho em aplicações em nuvem. 
+			Ponto negativo > Menor Capacidade de busca.
+	
+	2.4.2 Uso
+		Cache, sessão de usuario, carrinho de compra.
+
+	2.4.3 Ranking dos bancos mais utilizados. 	
+		1. Redis
+		2. Amazon DynamoDB
+		3. Microsoft Azure Cosmos DB
+		4. Memcached
+		5. ectd
+		6. Hazelcast
+		7. Ehcache
+		8. Aerospike
+		9. Riak KV
+		10.Ignite	
+	
+	2.4.4 REDIS
+		é um banco de dados, cache, messageria e fila. 
+			- Alto desempenho
+			- Estrutura de dados na memoria
+			- Versatilidade de uso
+			- Replicaçao e persistencia. 
+			- Não tem qualquer schema, então aceita qualquer valor
+				Quem usa: Twitter, github, stackoverflow entro outros.te
+
+		lembrando, que temo que ter uma forma de reproduzir a chave, por que não existe o conceito de buscar
+		o registro com base em um valor. Temos que ter o conhecimento da chave. 
+		
+
+		EXEMPLO DE CODIGO PARA O REGIS
+			SET user1:name 'Bob Esponja'    		---> Cria uma chave-valor
+			GET user1:name			  		---> Retorna o valor 
+			SET user '{"name": "Patrick", "age": 30}' ---> Adiciona um JSON
+			GET user						---> Retorna o valor que está na chave user
+			SET user2:name 'Lula Molusco'	EX 10		---> Gera uma chave-valor que expira em 10 segundos(EX 10)
+			EXISTS user2:name					---> Verifica se o dados está presente ou não
+		
+		O Redis nos permite manipular algumas collections, como list, set e hashset. 
+			
+			LPUSH user1:hobbies "Caçar agua viva"      ---> Insere um dado numa lista, e retornara o indice
+			LPUSH user1:hobbies "Comer Hamburgues"     ---> Insere um dado numa lista, e retornara o indice
+			LINDEX user1:hobbies 0				 ---> Retorna o ultimo dado adicionado
+			LRANGE user1:hobbies 0 1			 ---> Retorna o valor em um intervalor de indices 
+			LRANGE user1:hobbies 0 0		   	 ---> Retorna o valor em um intervalor de indices
+			TYPE user1:name			         	 ---> Indica o tipo de valor que está dentro de ua chave
+			TTL user1:name					 ---> Identifica qual o tempo de expiração de uma chave em segundos
+			SET user2:name "Patrick" EX 60
+			TTL user2:name
+			PTTL user2:name					 ---> Identifica qual o tempo de expiração de uma chave em milisegundos
+			PERSIST user2:name				 ---> Remove um tempo de expiração
+			DEL user2:name					 ---> Remover manualmente uma chave
+
+
+2.5 Banco de dados do tipo Documento
+	2.5.1 Informações gerais
+		- Dados e documentos autocontidos e auto descritivos, ou seja, todos os dados que permite ele existir vai estar dentro dele. 
+		- Permite redundancia e inconsistencia. Então, quer dizer que pode ter documentos com estruturas diferentes dentro da mesma collection,
+		  pode ter documentos com atributos a mais, atributos a menos.  
+		- Livre de schemas podendo utilizar JSON, XML entre outros. 
+
+	2.5.2 Ranking dos bancos mais utiliazdos
+		1. MongoDB
+		2. Amazon DynamoDB
+		3. Microsoft Azure Cosmos DB
+		4. Couchbase
+		5. Firebase Realtime Database
+		6. CouchDB
+		7. Realm
+		8. MarcLogic
+		9. Google Cloud Firestore
+		10. ArangoDB
+__________________________________________________________________________________________________________________________________________
+
+
+
+3.0 SCHEMA DESIGN E BOAS PRATICAS
+
+3.1 Schema Design  -  Embedding vc Referencia
+	3.1.1 Embedding 
+			Documentos autocontido
+			Prós: 
+				Consulta informaçoes em uma unica query
+				Atualiza o registro em uma unica operação
+			Constras:
+				Limite de 16mb por documento.		
+
+
+	3.1.2 Referencia
+			Documentos com dependencia de outros 
+			documentos ou collections.
+				No mongoDB nao tem o conceito de FOREING KEY, porém 
+				de certa forma teremos atributos dentro do documentos 
+				que vão fazer referencia para outros documentos,
+				ou para outras collections.
+					$lookup > executa querys dentros dos documentos. 
+			Prós: 
+				Documentos pequenos (porque eles não vão armazena seus subdocumentos, e não duplicará informação)	
+				Não duplica informaçoes (porém, não tem problemas os dados estarem duplicados).
+				Usado quando os dados não são acessados em todas as consultas
+
+					obs: Não é aconselhavel quando:
+							se toda a vez precisar consultar aquela informação
+							e precisar também da informação da referencia.
+
+				A referencia deve ser utilizada, quando em alguns casos voce precisar daquela informação.
+			
+			Constras:
+				Duas ou mais queries ou utilização do $lookup
+
+	3.1.3 Recomendação de uso de acordo com os relacionamentos:
+
+		One-to-one: Prefira atributos chave-valor no documentos. 
+	
+		One-to-many ou Many-to-many: Prefira referencia.
+		
+
+3.2 BOAS PRATICAS
+	
+	Evite documentos muito grandes
+
+	Use nome campos objetivos e curtos
+
+	Analise as suas queries utilizando explain()
+
+	Atualize apenas os campos expecificos
+
+	Evite negaçoes em queryes
+
+	Listas/Arrays dentro dos documentos não podem crescer sem limite
+
+
+3.3 JSON X BSON
+
+	3.3.1 BSON
+
+		- É uma serializaçao codificada em binario de documentos semelhantes a JSON
+		
+		- Contem extençoes que permitem a representação de tipos de dados que não fazem
+	 	  parte da especificação JSON. Por exemplo, BSON tem um tipo Date, ObjectID
+					 
+				
+3.4 EXEMPLO DE CÓDIGOS MONGODB
+	abrir o mongo db no terminal:
+	mongo --host 127.0.0.1:27017 -u debora -p trena --authenticationDatabase=admin
+	
+	show databases;								   ----> mostras os databases
+	use fenda_biquini;							   ----> cria um database	
+	db.creatCollection("test", {capped: true, max: 2, size: 2});   ----> cria uma collections
+	show collections;								   ----> exibe as collections	
+	db.test.insertOne({"name": "Test 1"});                     	   ----> insere dados dentro de uma collections
+	db.test.insertOne({"name": "Test 2"});
+	db.test.insertOne({"name": "Test 3"});
+	db.test.find({});								   ----> mostra os dados drento de umas collection, mas como essa collection foi criado de forma explicita, o primeira dados vai expirar	
+	db.test1.insertOne({"age": 10});                               ----> criei uma nova collection na inserçao de dados, de forma inplicita, o que faz com que possa adiciona varios dados sem expirar.
+	db.test1.insertOne({"age": 10});
+	db.test1.insertOne({"age": 10});
+	db.test1.insertOne({"age": 10}); 
+	db.test1.insertOne({"age": 10});
+	db.test1.find({});							   ----> mostras todos dos dados criados, pois foi veito de forma inplicita. 
+
+	db.clients.insert(["nome": "Patrick", "age": 38} , {"nome": "Bob Esponja"}])								
+	db.clients.insertOne({ name: "Debora", age: 20, status: "Single"} )
+	db.clients.insertOne({ name: "Luiz Filipe", age: 16, status: "Single"} )
+	db.clients.updateMany({age: { $lte: 20 } }, { $set: {status: "aprove", age: 25} })  -----> Primeiro vem a condição, $lte significa menor ou igual.) 
+
