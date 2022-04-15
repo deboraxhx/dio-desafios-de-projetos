@@ -14,8 +14,8 @@ pip install powersets
 ## Usage
 
 ```python
-from powesets import powerset1
-powerset1(lista)
+from powersets import powerset1
+powersets.powerset1(lista)
 ```
 
 ## Author
