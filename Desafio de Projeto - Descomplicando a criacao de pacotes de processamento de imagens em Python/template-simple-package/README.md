@@ -1,7 +1,7 @@
 # powersets
 
 Description.
-The package powerset is used to: - é uma função criada para retornar combinações únicas dos elementos em uma lista -
+The package powerset is used to: - é uma função criada para retornar combinações únicas dos elementos em uma lista.
 
 ## Installation
 
@@ -15,9 +15,9 @@ pip install powersets
 
 ```python
 from powersets import powerset1
-powersets.powerset1(lista)
+powerset1.powerset(lista)
 ```
 
 ## Author
 
-Débora
+Debora
