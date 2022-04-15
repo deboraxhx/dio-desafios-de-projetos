@@ -1,0 +1,48 @@
+Python instalado
+
+Ter um projeto para ser impacotado
+
+Git.
+
+
+Modulo vs Pacote
+
+Modulo: é um objeto que serve como unidade orgnizacional do codigo que é encarregado pelo comando import.
+	  exemplo: arquivos .py
+
+Pacote: coleçao de modulos com hierarquia.
+	  eles sao facilmente compartilhados, quando se cria uma dristribuiçao
+
+
+
+MODULARIZAÇAO:
+
+	Vantagens:
+		Legibilidade
+		Manutençao
+		Reaproveitamento de código
+
+
+PACOTE EM PYTHON:
+
+	Vantagens:
+		Facilidade de compartilhamento
+		Facilidade de instalaçao
+
+
+CONCEITOS:
+	
+	Pypi: repositorio publico oficial de pacotes
+	Wheel e Sdist: dois tipos de distribuiçoes
+	Setuptools: pacote usado em setup.py para gerar distribuiçoes
+	Twine: pacote usado para subir as distribuiçoes no repositorio Pypi
+
+
+
+PASSOS:
+								   wheel
+								   sdist
+					setup.py						twine
+	1. Criar o projeto  >>>>>>>>>>>>>> 2. Gerar as distribuicões >>>>>>>>>>>>>>> 3. fazer upload para o Pypl
+
+ 

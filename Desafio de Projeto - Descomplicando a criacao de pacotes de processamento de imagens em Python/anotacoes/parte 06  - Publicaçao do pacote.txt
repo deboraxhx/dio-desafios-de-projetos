@@ -1,0 +1,18 @@
+Passos para subir um pacote
+
+1.Criar conta no Test Pypi>>>>>>>>>>>>>>>>>> https://test.pypi.org/account/register/
+				
+2.Publicar no Test Pypi >>>>>>>>>>>>>>>>>>>> python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+	
+3.Instalar pacote usando Test Pypi >>>>>>>>> pip install –-index-url https://test.pypi.org/simple/ image-processing
+
+4.Testar pacote
+
+5.Criar conta no Pypi >>>>>>>>>>>>>>>>>>>>>> https://pypi.org/account/register/
+					
+6.Publicar no Pypi >>>>>>>>>>>>>>>>>>>>>>>>> python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+
+7.Instalar pacote usando Pipy >>>>>>>>>>>>>> python -m pip install package_name
+	
+
+

@@ -1,0 +1,12 @@
+PASSOS PARA GERAR AS DISTRIBUIÇOES
+
+1.Acessar a raiz do projeto
+
+2.Comandos de instalaçao
+	python -m pip install --upgrade pip
+	python -m pip install --user twine                # ferramenta que nos auxiliar a subir as distribuiçoes
+	python -m pip install --user setuptools
+
+3.Comando para criar a distribuiçao
+	python setup.py sdist bdist_wheel 			  # esse comando estamos chamando nosso arquivo que criamos(setup.py)
+									  # para criar uma sdist e uma wheel	

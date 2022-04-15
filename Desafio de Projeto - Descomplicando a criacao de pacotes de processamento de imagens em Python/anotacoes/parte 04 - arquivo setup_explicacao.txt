@@ -1,0 +1,31 @@
+Usado para especificar como o pacote deve ser construído.
+Documentação:
+
+https://setuptools.readthedocs.io/en/latest/setuptools.html
+
+
+
+______________________________________
+
+
+from setuptools import setup, find_packages         
+
+with open("README.md", "r") as f:                   
+    page_description = f.read()
+
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
+
+setup(
+    name="package_name",					#é importante que ele seja coerente com o nome que está na estutura do pacote
+    version="0.0.1",						#nao se consegue subir a mesma versao mais de uma vez, manter esse formato. boa pratica
+    author="my_name",				
+    author_email="my_email",
+    description="My short description",			#descriçao curta do pacote
+    long_description=page_description,			#ele vai puxar a descriçao do readme.md
+    long_description_content_type="text/markdown",	
+    url="my_github_repository_project_link"		#se quiser passar a url do projeto no github
+    packages=find_packages(),					#especifica todos os modulos e submodulos do projeto, nao é recomendado fazer manualmente. Usar o find_packages()
+    install_requires=requirements,				#ele é usado se o pacote tiver dependencias de outros pacotes. 
+    python_requires='>=3.8',					#qual a versao de python o arquivo precisar ter para executar o programa.  Tomar cuidado para nao restringir. 
+)

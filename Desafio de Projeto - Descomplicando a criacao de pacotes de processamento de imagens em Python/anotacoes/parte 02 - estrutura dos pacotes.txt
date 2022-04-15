@@ -1,0 +1,53 @@
+ESTRUTURA DE PACOTES SIMPLES
+
+
+ESTRUTURA SIMPLES
+
+	project_name/
+		README.md				
+		setup.py			
+		requirements.txt		
+		package_name/		módulo
+			__init__.py		quando se coloca esse comando init, nos estamos possibilitando a invocaçao do modulo. 
+			file1_name.py	
+			file2_name.py	
+
+
+<
+
+
+
+	Exemplos de chamadas a file1_name
+
+
+		import package_name.file1_name
+
+		from package_name import file1_name
+
+
+
+
+ESTRUTURA COM VARIOS MODULOS
+
+	project_name/
+		README.md				
+		setup.py			
+		requirements.txt		
+		package_name/			módulo
+			__init__.py			quando se coloca esse comando init, nos estamos possibilitando a invocaçao do modulo. 
+			module1_name/		modulo (submodulo) 
+				__init__.py			
+				file1_name.py	
+				file2_name.py
+			module2_name/		modulo (submodulo)
+				__init__.py			
+				file1_name.py	
+				file2_name.py
+
+
+	Exemplos de chamadas a file1_name
+
+		import package_name.module1_name.file1_name
+
+		from package_name.module1_name import file1_name
+	

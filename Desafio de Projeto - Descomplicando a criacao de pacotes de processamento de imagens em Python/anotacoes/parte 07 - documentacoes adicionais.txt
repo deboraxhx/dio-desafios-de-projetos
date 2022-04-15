@@ -1,0 +1,12 @@
+Adicionais:
+
+
+Documentação do setuptools:
+https://setuptools.readthedocs.io/en/latest/setuptools.html
+
+Testes automatizados: 
+https://docs.pytest.org/en/latest/goodpractices.html
+
+
+Uso do Tox: 
+https://tox.readthedocs.io/en/latest/

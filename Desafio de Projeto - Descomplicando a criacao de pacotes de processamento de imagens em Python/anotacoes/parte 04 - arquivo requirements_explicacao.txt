@@ -1,0 +1,11 @@
+Usado para passar as dependências que devem ser instaladas com o seu pacote. 
+	
+	Lembrando que esse é um requirement do seu pacote e nao do seu projeto.
+		Passar somente aquilo o que é necessário para que rode o seu pacote.	
+
+
+Opcionalmente, podem ser especificadas as versões.
+
+
+
+	
