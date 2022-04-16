@@ -1,0 +1,7 @@
+instalar o MySQL Communit Server
+
+instalar o MySQL Workbench
+
+instalar o XAMPP
+
+	- www.apachefriends.org/downloads
